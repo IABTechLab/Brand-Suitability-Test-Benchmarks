@@ -29,4 +29,4 @@ Should someone wish to challenge a particular please submit a pull request and m
         1. GARM will then either update their definitions to resolve the dispute or issue a ruling, in either fashion stating how to close the pull request.
 
 # Evaluations
-Code is provided to evaluate any dataset against one supplied in this directory.  For the most up to date usage of the evaluation code, simply run `python evaluation.py -h` to get the help.  In addition you can see an example output by running `python evaluation.py -l video/youtube.csv -p test/youtube-test.csv`.  Tests can be run with `python -m unittest discover test`.
+Code is provided to evaluate any dataset against one supplied in this directory.  For the most up to date usage of the evaluation code, simply run `python evaluation.py -h` to get the help.  In addition you can see an example output by running `python evaluation.py -l video/youtube.csv -p test/youtube-test.csv`.  Tests can be run with `python -m pytest`.
