@@ -23,3 +23,11 @@ def test_float():
     predictions = pd.DataFrame.from_dict({'Prediction': [0.8, 0.7, 0.2], 'URL': ['a', 'b', 'c']})
     result = evaluation.calc_error_metrics(labels, predictions, 'HIGH')
     assert result[1] == 1
+
+
+def test_videos():
+    labels = pd.read_csv('video/youtube.csv')
+    predictions = pd.read_csv('test/youtube-test.csv')
+    result = evaluation.calc_error_metrics(labels, predictions)
+    assert result[0] == 'Balanced Accuracy'
+    assert 0 <= result[1] <= 1
