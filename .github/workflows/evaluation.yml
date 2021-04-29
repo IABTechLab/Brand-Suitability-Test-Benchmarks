@@ -21,7 +21,7 @@ jobs:
       run: |
         # The GitHub editor is 127 chars wide
         flake8 . --max-line-length=127 --statistics
-    -name: Type checking with Mypy
+    - name: Type checking with Mypy
       run: |
         python -m mypy . --show-traceback
     - name: Test with pytest
