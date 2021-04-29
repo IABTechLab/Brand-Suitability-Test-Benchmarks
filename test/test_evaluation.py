@@ -3,14 +3,14 @@ import evaluation
 import pytest
 
 
-def test_labels():
+def test_labels() -> None:
     labels = pd.DataFrame.from_dict({'label': ['high', 'medium', 'low'], 'url': ['a', 'b', 'c']})
     predictions = pd.DataFrame.from_dict({'prediction': ['high', 'low', 'low'], 'url': ['a', 'b', 'c']})
     result = evaluation.calc_error_metrics(labels, predictions)
     assert 2/3 == pytest.approx(result[1])
 
 
-def test_convert_label():
+def test_convert_label() -> None:
     labels = pd.DataFrame.from_dict({'label': ['high', 'low', 'low'], 'url': ['a', 'b', 'c']})
     expected = labels.copy(deep=True)
     expected['is_high'] = [True, False, False]
@@ -18,16 +18,16 @@ def test_convert_label():
     assert expected.equals(result)
 
 
-def test_float():
+def test_float() -> None:
     labels = pd.DataFrame.from_dict({'label': ['high', 'medium', 'medium'], 'url': ['a', 'b', 'c']})
     predictions = pd.DataFrame.from_dict({'prediction': [0.8, 0.7, 0.2], 'url': ['a', 'b', 'c']})
     result = evaluation.calc_error_metrics(labels, predictions, 'high')
     assert result[1] == 1
 
 
-def test_videos():
+def test_videos() -> None:
     labels = pd.read_csv('video/youtube.csv')
-    predictions = pd.read_csv('test/youtube-test.csv')
+    predictions = pd.read_csv('test/video/youtube-test.csv')
     result = evaluation.calc_error_metrics(labels, predictions)
     assert result[0] == 'Balanced Accuracy'
     assert 0 <= result[1] <= 1

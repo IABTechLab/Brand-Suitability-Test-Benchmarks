@@ -9,9 +9,9 @@ Each type of content will have its own file to accommodate the specific nuances 
 
 ## Video
 The video format will contain at least the following columns
-1. Label - Of the 11 GARM categories, the highest label applicable.  For example if a video is medium for adult content, high for weapons, low for everything else then the label would be high.
-1. URL - The URL where the video can be found.
-1. Title - The user supplied title of the video
+1. `label` - Of the 11 GARM categories, the highest label applicable.  For example if a video is medium for adult content, high for weapons, low for everything else then the label would be high.
+1. `url` - The URL where the video can be found.
+1. `title` - The user supplied title of the video
 
 ### YouTube
 YouTube videos will be hosted by YouTube.  The titles provided are those at the time of upload of the data file, however, titles on YouTube are mutable and may change in the future.  We cannot guarantee that the title in the file is the same as the current title.  In addition YouTube videos may be taken down by the platform at any time.  Should anyone come across a video which is broken please submit a pull request.

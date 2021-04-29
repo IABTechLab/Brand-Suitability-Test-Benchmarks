@@ -2,10 +2,11 @@ from sklearn.metrics import balanced_accuracy_score
 from sklearn.metrics import average_precision_score
 import pandas as pd
 import argparse
+from typing import Optional, Set, Tuple
 
 
-def convert_labels_to_booleans(df, higher_level):
-    high_labels = None
+def convert_labels_to_booleans(df: pd.DataFrame, higher_level: Optional[str] = None) -> pd.DataFrame:
+    high_labels: Set[str] = set()
     if higher_level == 'floor':
         high_labels = {'floor'}
     elif higher_level == 'high':
@@ -16,8 +17,15 @@ def convert_labels_to_booleans(df, higher_level):
     return df
 
 
-def calc_error_metrics(labels, predictions, higher_level=None):
-    joined = labels.merge(predictions, on='url')
+def calc_error_metrics(
+        labels: pd.DataFrame,
+        predictions: pd.DataFrame,
+        higher_level: Optional[str] = None
+) -> Tuple[str, float]:
+    joined = labels.merge(predictions, on='url', how='inner')
+    if labels.shape[0] != predictions.shape[0] != joined.shape[0]:
+        raise ValueError(f'Shape of label ({labels.shape[0]}, predictions ({predictions.shape[0]}),'
+                         f'and joined ({joined.shape[0]}) are not the same.')
     if joined.dtypes['prediction'] == 'float':
         joined = convert_labels_to_booleans(joined, higher_level)
         ap = average_precision_score(y_true=joined.is_high, y_score=joined.prediction)
@@ -27,7 +35,7 @@ def calc_error_metrics(labels, predictions, higher_level=None):
         return 'Balanced Accuracy', ba
 
 
-def main():
+def main() -> None:
     help_msg = '''
         Command line tool to evaluate brand suitability predictions.  The predictions may be either labels with the
         words "low", "medium", "high", or "floor" or floating point numbers between 0 and 1.  If the predictions
