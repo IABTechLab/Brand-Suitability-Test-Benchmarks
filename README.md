@@ -13,6 +13,8 @@ The video format will contain at least the following columns
 1. `url` - The URL where the video can be found.
 1. `title` - The user supplied title of the video
 
+Note that at least for the YouTube file, the distribution of labels is ***not*** indicative of the distribution of labels on the platform as a whole.  The distribution was chosen to give a more uniform set of labels.
+
 ### YouTube
 YouTube videos will be hosted by YouTube.  The titles provided are those at the time of upload of the data file, however, titles on YouTube are mutable and may change in the future.  We cannot guarantee that the title in the file is the same as the current title.  In addition YouTube videos may be taken down by the platform at any time.  Should anyone come across a video which is broken please submit a pull request.
 
