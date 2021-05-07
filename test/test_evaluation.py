@@ -28,6 +28,5 @@ def test_float() -> None:
 def test_videos() -> None:
     labels = pd.read_csv('video/youtube.csv')
     predictions = pd.read_csv('test/video/youtube-test.csv')
-    result = evaluation.calc_error_metrics(labels, predictions)
-    assert result[0] == 'Balanced Accuracy'
-    assert 0 <= result[1] <= 1
+    with pytest.raises(ValueError):
+        evaluation.calc_error_metrics(labels, predictions)
