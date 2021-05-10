@@ -24,7 +24,7 @@ def calc_error_metrics(
 ) -> Tuple[str, float]:
     joined = labels.merge(predictions, on='url', how='inner')
     if labels.shape[0] != predictions.shape[0] != joined.shape[0]:
-        raise ValueError(f'Shape of label ({labels.shape[0]}, predictions ({predictions.shape[0]}),'
+        raise ValueError(f'Shape of label ({labels.shape[0]}), predictions ({predictions.shape[0]}), '
                          f'and joined ({joined.shape[0]}) are not the same.')
     if joined.dtypes['prediction'] == 'float':
         joined = convert_labels_to_booleans(joined, higher_level)
