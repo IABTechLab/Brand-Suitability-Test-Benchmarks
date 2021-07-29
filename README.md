@@ -1,3 +1,5 @@
+Please review the IAB Tech Lab Open Source Initiative Governance guidelines [here](http://iabtechlab.com/opensource) for contributing to this project.
+
 # Executive Summary
 
 This repository contains a list of human reviewed content and the labels assigned by those people according to the [GARM](https://wfanet.org/l/library/download/urn:uuid:7d484745-41cd-4cce-a1b9-a1b4e30928ea/garm+brand+safety+floor+suitability+framework+23+sept.pdf) standard.  The purpose of this repository is two fold.
