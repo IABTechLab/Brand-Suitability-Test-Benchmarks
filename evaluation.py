@@ -13,6 +13,8 @@ def convert_labels_to_booleans(df: pd.DataFrame, higher_level: Optional[str] = N
         high_labels = {'floor', 'high'}
     elif higher_level == 'medium':
         high_labels = {'floor', 'high', 'medium'}
+    elif higher_level == 'minimal':
+        high_labels = {'floor', 'high', 'medium', 'low'}
     df['is_high'] = df.label.isin(high_labels)
     return df
 
@@ -38,8 +40,8 @@ def calc_error_metrics(
 def main() -> None:
     help_msg = '''
         Command line tool to evaluate brand suitability predictions.  The predictions may be either labels with the
-        words "low", "medium", "high", or "floor" or floating point numbers between 0 and 1.  If the predictions
-        are numeric then an additional argument called level must be supplied to indicate which two levels
+        words "minimal", "low", "medium", "high", or "floor" or floating point numbers between 0 and 1.  If the
+        predictions are numeric then an additional argument called level must be supplied to indicate which two levels
         are being differentiated against.
     '''
     parser = argparse.ArgumentParser(description=help_msg)
@@ -57,14 +59,14 @@ def main() -> None:
         required=True,
         type=argparse.FileType('r', encoding='UTF-8'),
         help='CSV file containing predictions.  Should have at least two columns, prediction and url.  Predictions may '
-             'either be a string with one of "low", "medium", "high", "floor" or a float between 0 and 1.'
+             'either be a string with one of "minimal", "low", "medium", "high", "floor" or a float between 0 and 1.'
     )
     parser.add_argument(
         '--level',
-        help='One of "medium", "high", or "floor".  This argument is used when the predictions are numeric to '
+        help='One of "low", "medium", "high", or "floor".  This argument is used when the predictions are numeric to '
              'state which two levels the score is differentiating between.  This argument is the higher level.',
         default='high',
-        choices=['floor', 'high', 'medium']
+        choices=['floor', 'high', 'medium', 'low']
     )
     args = parser.parse_args()
     labels = pd.read_csv(args.labels)
