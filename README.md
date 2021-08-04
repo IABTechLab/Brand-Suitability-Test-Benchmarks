@@ -11,7 +11,7 @@ Each type of content will have its own file to accommodate the specific nuances 
 
 ## Video
 The video format will contain at least the following columns
-1. `label` - Of the 11 GARM categories, the highest label applicable.  For example if a video is medium for adult content, high for weapons, low for everything else then the label would be high.
+1. `label` - Of the 11 GARM categories, the highest label applicable.  The label values are one of `minimal`, `low`, `medium`, `high`, or `floor`.  For example if a video is medium for adult content, high for weapons, minimal for everything else then the label would be high.
 1. `url` - The URL where the video can be found.
 1. `title` - The user supplied title of the video
 
