@@ -1,5 +1,4 @@
-from sklearn.metrics import balanced_accuracy_score
-from sklearn.metrics import average_precision_score
+from sklearn.metrics import balanced_accuracy_score, average_precision_score
 import pandas as pd
 import argparse
 from typing import Optional, Set, Tuple
@@ -25,14 +24,16 @@ def calc_error_metrics(
         higher_level: Optional[str] = None
 ) -> Tuple[str, float]:
     joined = labels.merge(predictions, on='url', how='inner')
-    if labels.shape[0] != predictions.shape[0] != joined.shape[0]:
-        raise ValueError(f'Shape of label ({labels.shape[0]}), predictions ({predictions.shape[0]}), '
-                         f'and joined ({joined.shape[0]}) are not the same.')
+    if labels.shape[0] != predictions.shape[0] or labels.shape[0] != joined.shape[0]:
+    	print(f'Supplied {labels.shape[0]} labels and {predictions.shape[0]} predictions, '
+    		  f'but only {joined.shape[0]} items are in the inner join.')
     if joined.dtypes['prediction'] == 'float':
         joined = convert_labels_to_booleans(joined, higher_level)
         ap = average_precision_score(y_true=joined.is_high, y_score=joined.prediction)
         return 'Average Precision', ap
     else:
+        joined['binary_label'] = joined.label != 'minimal'
+        joined['binary_prediction'] = joined.prediction != 'minimal'
         ba = balanced_accuracy_score(y_true=joined.label, y_pred=joined.prediction)
         return 'Balanced Accuracy', ba
 
@@ -48,7 +49,7 @@ def main() -> None:
     parser.add_argument(
         '-l',
         '--labels',
-        default='video/youtube.csv',
+        default='video/data/youtube.csv',
         required=True,
         type=argparse.FileType('r', encoding='UTF-8'),
         help='CSV file containing ground truth. Should have at least two columns, label and URL.'
