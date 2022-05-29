@@ -25,15 +25,13 @@ def calc_error_metrics(
 ) -> Tuple[str, float]:
     joined = labels.merge(predictions, on='url', how='inner')
     if labels.shape[0] != predictions.shape[0] or labels.shape[0] != joined.shape[0]:
-    	print(f'Supplied {labels.shape[0]} labels and {predictions.shape[0]} predictions, '
-    		  f'but only {joined.shape[0]} items are in the inner join.')
+        print(f'Supplied {labels.shape[0]} labels and {predictions.shape[0]} predictions, '
+              f'but only {joined.shape[0]} items are in the inner join.')
     if joined.dtypes['prediction'] == 'float':
         joined = convert_labels_to_booleans(joined, higher_level)
         ap = average_precision_score(y_true=joined.is_high, y_score=joined.prediction)
         return 'Average Precision', ap
     else:
-        joined['binary_label'] = joined.label != 'minimal'
-        joined['binary_prediction'] = joined.prediction != 'minimal'
         ba = balanced_accuracy_score(y_true=joined.label, y_pred=joined.prediction)
         return 'Balanced Accuracy', ba
 
