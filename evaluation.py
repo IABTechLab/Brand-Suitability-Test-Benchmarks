@@ -71,7 +71,7 @@ def main() -> None:
     labels = pd.read_csv(args.labels)
     predictions = pd.read_csv(args.predictions)
     metrics = calc_error_metrics(labels, predictions)
-    print(f'{metrics[0]}: {metrics[1]}')
+    print(f'{metrics[0]}: {metrics[1]:0.3}')
 
 
 if __name__ == "__main__":
