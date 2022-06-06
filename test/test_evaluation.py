@@ -23,11 +23,3 @@ def test_float() -> None:
     predictions = pd.DataFrame.from_dict({'prediction': [0.8, 0.7, 0.2], 'url': ['a', 'b', 'c']})
     result = evaluation.calc_error_metrics(labels, predictions, 'high')
     assert result[1] == 1
-
-
-def test_videos() -> None:
-    labels = pd.read_csv('video/youtube.csv')
-    predictions = pd.read_csv('test/video/youtube-test.csv')
-    with pytest.raises(ValueError, match=r'Shape of label \(\d+\), predictions \(\d+\), and joined \(\d+\) are not '
-                                         r'the same.'):
-        evaluation.calc_error_metrics(labels, predictions)
